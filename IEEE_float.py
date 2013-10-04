@@ -1,3 +1,7 @@
+#format a number in IEEE float format
+#only normal form supported
+#exp returned without offsetting with a bias
+
 def IEEE_float(f):
 	f = float(f)
 	sign = 0
