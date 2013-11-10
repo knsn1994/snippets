@@ -19,4 +19,4 @@ def IEEE_float(f):
 	mantisa = "{0:b}".format(mantisa)
 	return sign,mantisa,exp
 	
-print IEEE_float(24/17.0)
+print IEEE_float(1/24.)
