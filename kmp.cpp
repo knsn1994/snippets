@@ -15,56 +15,45 @@ using namespace std;
 #define pb push_back
 #define mp make_pair
 #define cin(n) scanf("%d",&n)
-#define gc getchar_unlocked
+#define gc getchar
 typedef vector<int> VI;
 int fcin(){register int c = gc();int x = 0;for(;(c<48 || c>57);c = gc());for(;c>47 && c<58;c = gc()) {x = (x<<1) + (x<<3) + c - 48;}return x;}
-const int max_m = (1<<22);
 const int max_n = (int)1e6;
-int arr[max_m+1]; 
-void preprocess(){
-	arr[0]=0; 
-	for(int i=1;i<=max_m;i++)arr[i] = arr[i>>1]^(i&1);
-}
-int T[max_n];
-int P[max_n];
-int n;
+int pi[max_n];
+char P[max_n], T[max_n]; 
+int n,m;
 void table()
 {    
-  for(int i=0;i<n;i++)T[i]=-1;
-  int cnd=0;
-  int i=2;
-  T[0]=-1;T[1]=0;
-  while(i<n)
-  {
-    if(P[i-1]==P[cnd])T[i++]=++cnd;
-    else if (cnd>0) cnd=T[cnd];
-    else T[i++]=0;
-  }
+	pi[0] = -1;
+	int k = -1;
+	for(int i = 1; i <= m; i++) {
+		while(k >= 0 && P[k+1] != P[i])
+		k = pi[k];
+		pi[i] = ++k;
+	}
 }
 void kmp()
 {
-	int N = max_m;
-	int m=0;int i=0;
-	int printedSoFar = 0; 
-	while(m+i<N && printedSoFar < n){
-	    if(P[i]==arr[m+i]){
-		  if(printedSoFar <= i)printedSoFar++,cout<<m<<" "; 
-	      i++;
-	    }
-	    else{
-	      m=m+i-T[i];
-	      i=(T[i]>-1)?T[i]:0;
-	    }
-  	}
-	while(printedSoFar < n)printedSoFar++,cout<<"-1 ";
+	int k = 0;
+	for(int i = 1; i <= n; i++) {
+		while(k >= 0 && P[k+1] != T[i])
+			k = pi[k];
+		k++;
+		if(k == m) {
+			cout << i-m+1 << endl;
+			k = pi[k];
+		}
+	}	
 }
 int main(){
-	preprocess(); 
-	int tests=fcin();
-	while(tests--){
-		n = fcin();
-		for(int i=0;i<n;i++)P[i] = fcin(); 
+	int N; 
+	while(scanf("%d",&N) != EOF){
+		scanf("%s",P+1);
+		scanf("%s",T+1);
+		n = strlen(T+1);
+		m = strlen(P+1);
 		table();
 		kmp();
+		cout << endl; 	
 	}
 }
