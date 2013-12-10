@@ -1,3 +1,9 @@
+#include <iostream> 
+#include <cstdio>
+#include <cstdlib> 
+#include <cstring> 
+#include <string>
+
 const int maxn = (int)1e7 + 10;
 
 int isComposite[maxn >> 6];
@@ -16,7 +22,7 @@ inline void fix(int i)
 	isComposite[ i >> 5] |= ( 1 << ( i & 31) );
 }
 
-void seive()
+void sieve()
 {
 	int i,j, k;
 
