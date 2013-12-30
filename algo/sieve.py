@@ -16,5 +16,5 @@ def sieve(n):
 		x+=1
 	return p
 	
-print len(sieve(150))
-print sieve(150)
+print len(sieve(50))
+print sieve(50)
